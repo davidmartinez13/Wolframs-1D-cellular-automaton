@@ -76,12 +76,11 @@ width = 90
 main_grid = np.ones((height,width)).tolist()
 prev_line = np.ones(width)
 prev_line[int(width/2)] = 0
+#choose different rulesets
 
-# ruleset = [0,1,0,1,1,0,1,0]
-ruleset = [1,0,0,0,0,1,1,1]
-# ruleset = [1,0,0,0,1,0,0,1]
-# ruleset = [0,1,1,1,0,1,1,0]
-# ruleset = [1,0,0,0,1,0,0,1]
+rulesets ={'a':[0,1,0,1,1,0,1,0],'b':[1,0,0,0,0,1,1,1],'c':[1,0,0,0,1,0,0,1],'d':[0,1,1,1,0,1,1,0],'e':[1,0,0,0,1,0,0,1]}
+ruleset = rulesets['b']
+
 
 while True:
     start = time.time()
@@ -91,9 +90,12 @@ while True:
     next_line = compute_next_line_np(prev_line, ruleset)
     prev_line = next_line
     char_grid = np.array(next_line)
-    # show = np.where(char_grid ==1,"⬜","⬛")
-    # show = np.where(char_grid ==1,"□","■")
-    show = np.where(char_grid ==1,"⬚","◼")
+    #printing with different squares on terminal
+
+    bw_squares = {'big':["⬜","⬛"],'medium':["⬚","◼"],'small':["□","■"]}
+
+    show = np.where(char_grid ==1,bw_squares['medium'][0],bw_squares['medium'][1])
+
     st = ""
     print(st.join(show.tolist()))
     _main_grid = np.repeat(np.array(main_grid),10, axis=0)
